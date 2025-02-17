@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>hello</title>
+    </head>
+
+<body>
+
+    <h1>Hii Harshada, it is the home page</h1>
+    {{ name }} is from {{ place }}
+
+    <form action="/analyze/" method="post">
+        {% csrf_token %}  <!-- Add CSRF token for security -->
+    
+        <textarea name="text"></textarea> <br>
+        
+        <input type="checkbox" name="remove" checked> Remove punctuation <br>
+        <input type="checkbox" name="capitalize" checked> Full Capitalize <br>
+        <input type="checkbox" name="length" checked> count of characters <br>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>
