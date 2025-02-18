@@ -1,63 +1,36 @@
 from django.http import HttpResponse
-
 from django.shortcuts import render
 
 def index(request):
-    params ={'name':'Harshada','place':'Gargantua'}
-    return render(request,"home.html",params)
+    params = {'name': 'Harshada', 'place': 'Gargantua'}
+    return render(request, "home.html", params)
 
 def about(request):
-    return HttpResponse("<h1> about </h1>")
+    return HttpResponse("<h1> About Page </h1>")
+
+from django.http import HttpResponse
+from django.shortcuts import render
 
 def analyze(request):
+    djtext = request.POST.get('text', 'default')
+    remove = request.POST.get('remove', 'off')
+    capitalize = request.POST.get('capitalize', 'off')
+    length = request.POST.get('length', 'off')
 
-    djtext =request.POST.get('text','default')
-    print(djtext)
-
-    remove =request.POST.get('remove','off')
-    print(remove)
-
-    capitalize =request.POST.get('capitalize','off')
-    print(capitalize)
-
-    length =request.POST.get('length','off')
-    print(length)
+    analyzed = djtext  # ✅ Always initialize `analyzed` to avoid errors
 
     if remove == "on":
-        analyzed =""
-        punctuation = ''' . , ? ! : ; ' " ( ) [ ] { } - – — … / \ @ # $ % ^ & * _ = + < > |'''
-
-        for char in djtext:
-            if char not in  punctuation :
-                analyzed =analyzed+ char
-            
-            
-        params ={'purpose':'remove punctuation','analyzed_text':analyzed}
-        djtext =analyzed
-
+        punctuation = '''.,?!:;'\"()[]{}-–—…/\@#$%^&*_+=<>|'''
+        analyzed = "".join(char for char in djtext if char not in punctuation)
     
-        # return render(request,'analyze.html',params)
-    
-
     if capitalize == 'on':
-        analyzed =""
-        for char in djtext:
-            analyzed = analyzed + char.upper()
-        params = {'purpose': 'capitalize', 'analyzed_text': analyzed}
-        # return render(request, 'analyze.html', params)
-        djtext =analyzed
-    
+        analyzed = analyzed.upper()  # ✅ Use `analyzed` instead of `djtext`
+
     if length == 'on':
-        analyzed =""
-        count = sum(1 for char in djtext if char.isalpha())
-            
-        params = {'purpose': 'length', 'analyzed_text': count}
-        djtext =analyzed
+        analyzed = len(analyzed)  # ✅ Use `analyzed`, not `djtext`
 
-    
-    return render(request, 'analyze.html', params)
-        
-        
-    
+    # Ensure at least one option was selected
+    if remove == 'off' and capitalize == 'off' and length == 'off':
+        return HttpResponse("<h2>Please select at least one option!</h2>")
 
-   
+    return render(request, 'analyze.html', {'analyzed_text': analyzed})

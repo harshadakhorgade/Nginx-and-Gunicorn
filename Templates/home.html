@@ -8,7 +8,7 @@
     <h1>Hii Harshada, it is the home page</h1>
     {{ name }} is from {{ place }}
 
-    <form action="/analyze/" method="post">
+    <form action="{% url 'analyze' %}" method="post">
         {% csrf_token %}  <!-- Add CSRF token for security -->
     
         <textarea name="text"></textarea> <br>
