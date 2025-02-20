@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name ="index"),
     path('about/',views.about,name ="about"),
-    path('analyze/',views.analyze,name ='remove')
+    path('analyze/',views.analyze,name ='analyze')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
