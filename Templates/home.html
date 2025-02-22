@@ -5,8 +5,8 @@
 
 <body>
 
-    <h1>Hii Harshada, it is the home page</h1>
-    {{ name }} is from {{ place }}
+    <h1> home page</h1>
+    {% comment %} {{ name }} is from {{ place }} {% endcomment %}
 
     <form action="{% url 'analyze' %}" method="post">
         {% csrf_token %}  <!-- Add CSRF token for security -->
