@@ -16,17 +16,17 @@ sudo apt install python3-virtualenv
 
 ## **3. Clone the Repository**  
 ```bash
-git clone https://github.com/harshadakhorgade/ASG-and-Load-Blanacer.git
+git clone https://github.com/harshadakhorgade/Nginx-and-Gunicorn.git
 ```
 ### If you face a fatal error while cloning:
 ```bash
-rm -rf ASG-and-Load-Blanacer  
+rm -rf Nginx-and-Gunicorn 
 # Then try cloning again
-git clone https://github.com/harshadakhorgade/ASG-and-Load-Blanacer.git
+git clone https://github.com/harshadakhorgade/Nginx-and-Gunicorn.git
 ```
 
 ```bash
-cd ASG-and-Load-Blanacer
+cd Nginx-and-Gunicorn
 ```
 
 ## **4. Create and Activate Virtual Environment**  
@@ -80,8 +80,8 @@ After=network.target
 [Service]
 User=ubuntu
 Group=www-data
-WorkingDirectory=/home/ubuntu/ASG-and-Load-Blanacer
-ExecStart=/home/ubuntu/ASG-and-Load-Blanacer/env/bin/gunicorn \
+WorkingDirectory=/home/ubuntu/Nginx-and-Gunicorn
+ExecStart=/home/ubuntu/Nginx-and-Gunicorn/env/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind unix:/run/gunicorn.sock \
@@ -121,7 +121,7 @@ server {
     location = /favicon.ico { access_log off; log_not_found off; }
 
     location /staticfiles/ {
-        root /home/ubuntu/ASG-and-Load-Blanacer;
+        root /home/ubuntu/Nginx-and-Gunicorn;
     }
 
     location / {
@@ -151,7 +151,7 @@ sudo systemctl restart nginx
 ## **9. Restart Gunicorn and Nginx**
 ### **9.1 Activate Virtual Environment**
 ```bash
-cd ASG-and-Load-Blanacer
+cd Nginx-and-Gunicorn
 source env/bin/activate
 ```
 ### **9.2 Restart Services**
